@@ -4,12 +4,13 @@
  *
  * http://gmarwaha.com/jquery/jcarousellite/
  *
+ * Copyright (c) 2009 ARK-Web Co., Ltd.
  * Copyright (c) 2007 Ganeshji Marwaha (gmarwaha.com)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
  *
- * Version: 1.0.1
+ * Version: 1.0.1_acc
  * Note: Requires jquery 1.2 or above from version 1.0.1
  */
 
@@ -219,13 +220,21 @@ $.fn.jCarouselLite = function(o) {
         scroll: 1,
 
         beforeStart: null,
-        afterEnd: null
+        afterEnd: null,
+        
+        btnStop: null,
+        btnStart: null,
+        afterStop: null,
+        afterStart: null
     }, o || {});
 
     return this.each(function() {                           // Returns the element collection. Chainable.
 
         var running = false, animCss=o.vertical?"top":"left", sizeCss=o.vertical?"height":"width";
         var div = $(this), ul = $("ul", div), tLi = $("li", ul), tl = tLi.size(), v = o.visible;
+
+        var interval    = null;
+        var auto_status = 'stop';
 
         if(o.circular) {
             ul.prepend(tLi.slice(tl-v-1+1).clone())
@@ -272,9 +281,7 @@ $.fn.jCarouselLite = function(o) {
             });
 
         if(o.auto)
-            setInterval(function() {
-                go(curr+o.scroll);
-            }, o.auto+o.speed);
+          startAuto();
 
         function vis() {
             return li.slice(curr).slice(0,v);
@@ -325,6 +332,37 @@ $.fn.jCarouselLite = function(o) {
             }
             return false;
         };
+        
+        if(o.btnStart)
+            $(o.btnStart).click(function() {
+                startAuto();
+                return false;
+            });
+        if(o.btnStop)
+            $(o.btnStop).click(function() {
+                stopAuto();
+                return false;
+            });
+
+        function startAuto() {
+          if (auto_status == 'stop') {
+            auto_status = 'start';
+            interval = setInterval(function() {go(curr+o.scroll)}, Number(o.auto+o.speed));
+            
+            if(o.afterStart)
+              o.afterStart.call(this, vis());
+          }
+        };
+        function stopAuto() {
+          if (auto_status == 'start') {
+            auto_status = 'stop';
+            clearInterval(interval);
+            
+            if(o.afterStop)
+              o.afterStop.call(this, vis());
+          }
+        };
+
     });
 };
 
