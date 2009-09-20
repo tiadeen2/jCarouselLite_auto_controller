@@ -1,0 +1,69 @@
+jCarouselLite auto controller - jCarouselLiteのauto機能を停止/再開できるようにする
+
+original jCarouselLite: http://gmarwaha.com/jquery/jcarousellite/
+@requires jQuery v1.2 or above
+
+Copyright (c) 2009 ARK-Web Co., Ltd.
+Copyright (c) 2007 Ganeshji Marwaha (gmarwaha.com)
+Dual licensed under the MIT and GPL licenses:
+http://www.opensource.org/licenses/mit-license.php
+http://www.gnu.org/licenses/gpl.html
+
+Version: 1.0.1_acc
+
+
+-----------------------------
+   Install
+-----------------------------
+* jCarouselLiteと同じ
+
+-----------------------------
+   New Option
+-----------------------------
+@option btnStart, btnStop : string - no defaults
+@desc 停止/再生ボタンのElement名を指定する。autoオプションがnullでなければ、自動的にbtnStartを押した挙動となる。
+
+@option afterStop, afterStart : function - callbacks
+@desc 停止/再生ボタンが実行された時に呼び出されるコールバック関数を指定しておける。
+
+-----------------------------
+   Example
+-----------------------------
+<script type="text/javascript">
+$(".jcarousellite").jCarouselLite({
+  btnNext: ".next",
+  btnPrev: ".prev",
+  auto: 1000,
+  btnStart: ".start",
+  btnStop:  ".stop",
+  afterStart: function() {
+    jQuery(".start").css("display", "block");
+    jQuery(".stop").css("display", "none");
+  },
+  afterStop: function() {
+    jQuery(".start").css("display", "block");
+    jQuery(".stop").css("display", "none");
+  }
+});
+</script>
+：
+<style type="text/css">
+.start {display:none}
+</style>
+：
+<div class="jcarousellite">
+<div class="controller">
+  <button class="prev">前へ</button>
+  <button class="stop">停止</button>
+  <button class="start">再生</button>
+  <button class="next">次へ</button>
+</div>
+<div class="carousel">
+  <ul>
+  <li><img src="example1.jpg" alt="example1" /></li>
+  <li><img src="example2.jpg" alt="example2" /></li>
+  <li><img src="example3.jpg" alt="example3" /></li>
+  </ul>
+</div>
+</div>
+
