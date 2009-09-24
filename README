@@ -69,3 +69,5 @@ $(document).ready(function(){
 </div>
 </div>
 
+上記のサンプルは下記URLから動作確認ができます。
+http://okra.ark-web.jp/~takemura/public/js/jcarousellite/acc/
