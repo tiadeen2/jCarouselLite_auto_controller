@@ -30,20 +30,22 @@ Version: 1.0.1_acc
    Example
 -----------------------------
 <script type="text/javascript">
-$(".jcarousellite").jCarouselLite({
-  btnNext: ".next",
-  btnPrev: ".prev",
-  auto: 1000,
-  btnStart: ".start",
-  btnStop:  ".stop",
-  afterStart: function() {
-    jQuery(".start").css("display", "block");
-    jQuery(".stop").css("display", "none");
-  },
-  afterStop: function() {
-    jQuery(".start").css("display", "block");
-    jQuery(".stop").css("display", "none");
-  }
+$(document).ready(function(){
+  $(".carousel").jCarouselLite({
+    btnNext: ".next",
+    btnPrev: ".prev",
+    auto: 2000,
+    btnStart: ".start",
+    btnStop:  ".stop",
+    afterStart: function() {
+      $(".start").css("display", "none");
+      $(".stop").css("display", "block");
+    },
+    afterStop: function() {
+      $(".start").css("display", "block");
+      $(".stop").css("display", "none");
+    }
+  });
 });
 </script>
 ：
